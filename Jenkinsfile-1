@@ -4,14 +4,9 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   stages {
-    stage('Permission') {
+    stage('Scan') {
       steps {
-          chmod a+x ./mvnw
-        
-      }
-    }
-	stage('Scan') {
-      steps {
+			sh 'chmod a+x ./mvnw'
         withSonarQubeEnv(installationName: 'sonarqube server') { 
           sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
         }
